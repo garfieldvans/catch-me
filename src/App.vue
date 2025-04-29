@@ -15,7 +15,6 @@
     <div class="mt-[20px] bg-indigo-300 flex flex-col justify-center items-center">
       <p v-if="error" style="color: red;">{{ error }}</p>
       <img v-if="image" :src="image" alt="Screenshot" />
-      <!-- Download button for the screenshot -->
       <button v-if="image" @click="downloadImage" class="mt-[10px] bg-blue-500 text-white py-[6px] px-[20px] rounded">
         Download Screenshot
       </button>
@@ -43,7 +42,7 @@ export default {
       this.image = null;
 
       try {
-        const response = await axios.post('http://localhost:3000/api/screenshot', {
+        const response = await axios.post('https://catch-me-api.up.railway.app/api/screenshot', {
           url: this.url,
         }, { responseType: 'arraybuffer' });
 
@@ -56,11 +55,10 @@ export default {
       }
     },
 
-    // Method to download the screenshot
     downloadImage() {
       const a = document.createElement('a');
       a.href = this.image;
-      a.download = 'screenshot.png'; // The name of the downloaded file
+      a.download = 'screenshot.png';
       a.click();
     },
   },
